@@ -11,14 +11,20 @@ from stable_baselines.common import set_global_seeds
 from stable_baselines import PPO2, ACER
 from models.a2c import a2c as A2C
 
+# Setting log levels to cut out minor errors
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 tf.logging.set_verbosity(tf.logging.ERROR)
 
+
+
 print("Available models: 1: A2C (default), 2: PPO2, 3: OUR CUSTOM MODEL")
-model_num = input("choose model: ")
+
 env_num = input("choose env: ")
+
 # Create and wrap the environment
 env = gym.make('CartPole-v1')
+
+# Setting all random seeds
 env.seed(0)
 random.seed(0)
 np.random.seed(0)
@@ -28,6 +34,8 @@ tf.random.set_random_seed(0)
 env = DummyVecEnv([lambda: env])
 env = VecNormalize(env)
 
+# Setting up model of your choice
+model_num = input("choose model: ")
 if model_num == 2:
     model = PPO2(policies.MlpPolicy, env, verbose=1)
 elif model_num == 3:
