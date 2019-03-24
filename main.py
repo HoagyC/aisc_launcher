@@ -1,6 +1,7 @@
 import numpy as np
 import random
 import os
+import sys
 import gym
 import tensorflow as tf
 import stable_baselines.common.policies as policies
@@ -13,7 +14,7 @@ from models.a2c import a2c as A2C
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 tf.logging.set_verbosity(tf.logging.ERROR)
 
-print("Available models: 1: A2C (default), 2: PPO2, 3: ACER")
+print("Available models: 1: A2C (default), 2: PPO2, 3: OUR CUSTOM MODEL")
 model_num = input("choose model: ")
 env_num = input("choose env: ")
 # Create and wrap the environment
@@ -30,7 +31,8 @@ env = VecNormalize(env)
 if model_num == 2:
     model = PPO2(policies.MlpPolicy, env, verbose=1)
 elif model_num == 3:
-    model = ACER(policies.MlpPolicy, env, verbose=1)
+    print('this has not been added, sorry')
+    sys.exit()
 else:
     model = A2C.A2C(policies.MlpPolicy, env, verbose=1)
 
