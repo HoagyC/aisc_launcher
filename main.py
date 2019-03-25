@@ -6,9 +6,9 @@ import os
 import time
 import tensorflow as tf
 
-from stable_baselines.common.vec_env import VecNormalize
 from stable_baselines.common.cmd_util import make_atari_env
 from stable_baselines.common import set_global_seeds
+from stable_baselines.common.vec_env import VecNormalize
 from stable_baselines.common.vec_env import VecFrameStack
 from models import a2c, acer, acktr, deepq, ddpg, ppo1, ppo2, sac, trpo
 
@@ -66,10 +66,17 @@ while True:
     except ValueError:
         print('Not a number')
 
+# Loading file if available
+
+
 # Training for chosen length of time
 start_time = time.time()
-while time.time() - start_time < train_time:
+while (time.time() - start_time) < train_time:
     model.learn(total_timesteps=200)
+
+# Saving
+print('Saving model')
+model.save('./saved_models/%s-%s-%s' % (env_name, model_name, policy_type))
 
 # Displaying gameplay
 obs = env.reset()
